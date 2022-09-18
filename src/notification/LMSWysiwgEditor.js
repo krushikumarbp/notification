@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import Select from "react-select";
 import PropTypes from 'prop-types';
 import { EditorState, convertToRaw, Modifier,ContentState } from 'draft-js';
@@ -92,9 +92,8 @@ const options = [
     updateHtmlData: Function = (e): void => {
       console.log(typeof e.target.value)
       console.log(draftToHtml((e.target.value)));
-      this.state.htmlData = draftToHtml(convertToRaw(e.target.value))
       this.setState({
-        // htmlData: draftToHtml(convertToRaw(e.target.value)),
+        htmlData: draftToHtml(convertToRaw(e.target.value)),
         editorState:htmlToDraft(e.target.value),
       });
     }
