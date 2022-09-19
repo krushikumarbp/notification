@@ -8,8 +8,6 @@ import htmlToDraft from 'html-to-draftjs';
 import "../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 const options = [
     { value: "Select Options", label: "Select Options" },
-    { value: "a", label: "a" },
-    { value: "b", label: "b" },
     { value: "strawberry", label: "Strawberry" },
     { value: "vanilla", label: "Vanilla" }
   ];
@@ -66,7 +64,6 @@ const options = [
       super(props);
       const html = '<p>Test<p>   <br>dfg</br>';
       const contentBlock = htmlToDraft(html);
-      // const htmlData = '';
       if (contentBlock) {
         const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
         const editorState = EditorState.createWithContent(contentState);        
@@ -84,17 +81,21 @@ const options = [
       });
     };
     convertHtmlToDraft: Function = (): void =>{
-      console.log(this.state.htmlData);
+      const contentBlock = htmlToDraft(this.state.htmlData);      
+      const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+      const updatedEditorState = EditorState.createWithContent(contentState); 
       this.setState({
-        editorState:htmlToDraft(this.state.htmlData),
+        editorState:updatedEditorState,
+        htmlData:draftToHtml(convertToRaw(updatedEditorState.getCurrentContent()))
       });
     }
     updateHtmlData: Function = (e): void => {
-      console.log(typeof e.target.value)
-      console.log(draftToHtml((e.target.value)));
+      const contentBlock = htmlToDraft(e.target.value);      
+      const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+      const updatedEditorState = EditorState.createWithContent(contentState); 
       this.setState({
-        htmlData: draftToHtml(convertToRaw(e.target.value)),
-        editorState:htmlToDraft(e.target.value),
+        // editorState:updatedEditorState,
+        htmlData:draftToHtml(convertToRaw(updatedEditorState.getCurrentContent()))
       });
     }
   

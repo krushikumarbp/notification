@@ -45,6 +45,7 @@ const LMSSelect: React.FC<LMSSelectProps> = ({
 
   return (
       <Select
+        key={value}
         id={id}
         value={selectValue}
         onChange={handleChange}
